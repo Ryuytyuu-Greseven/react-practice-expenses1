@@ -11,6 +11,7 @@ function ExpenseItem(props) {
 
   const changeHandler = () => {
     staticVal++;
+    // dispatching the new value to display the value when user click on CHANGE TITLE
     setTitle("New Value " + staticVal);
     console.log("Changed! ", staticVal);
   };
