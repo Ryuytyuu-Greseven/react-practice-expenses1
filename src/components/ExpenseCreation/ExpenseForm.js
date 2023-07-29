@@ -75,6 +75,11 @@ const ExpenseForm = () => {
     };
 
     console.log(expenseDetails);
+    setNewExpenseDetails({
+      expenseAmount: "",
+      expenseDate: "",
+      expenseTitle: "",
+    });
   };
 
   return (
@@ -84,6 +89,7 @@ const ExpenseForm = () => {
           <label>Title</label>
           <input
             type="text"
+            value={newExenseDetails.expenseTitle}
             onChange={(event) => {
               sharedFormUpdateHandler("title", event.target.value);
             }}
@@ -93,6 +99,7 @@ const ExpenseForm = () => {
           <label>Amount</label>
           <input
             type="number"
+            value={newExenseDetails.expenseAmount}
             onChange={(event) => {
               sharedFormUpdateHandler("amount", event.target.value);
             }}
@@ -102,6 +109,7 @@ const ExpenseForm = () => {
           <label>Date</label>
           <input
             type="date"
+            value={newExenseDetails.expenseDate}
             onChange={(event) => {
               sharedFormUpdateHandler("date", event.target.value);
             }}
