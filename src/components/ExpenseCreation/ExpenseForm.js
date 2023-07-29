@@ -66,8 +66,19 @@ const ExpenseForm = () => {
     });
   };
 
+  const addExpense = (event) => {
+    event.preventDefault();
+    const expenseDetails = {
+      expenseTitle: newExenseDetails.expenseTitle,
+      expenseAmount: newExenseDetails.expenseAmount,
+      expenseDate: newExenseDetails.expenseDate,
+    };
+
+    console.log(expenseDetails);
+  };
+
   return (
-    <form>
+    <form onSubmit={addExpense}>
       <div className="new-expense__controls">
         <div className="new-expense__control">
           <label>Title</label>
