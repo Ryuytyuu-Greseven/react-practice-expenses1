@@ -29,9 +29,15 @@ function App() {
       date: new Date(),
     },
   ];
+
+  // add a new expense to the list
+  const expenseAddEvent = (event) => {
+    expenses.push(event);
+  };
+
   return (
     <div>
-      <NewExpense />
+      <NewExpense addNewExpense={expenseAddEvent} />
       <Expenses expenses={expenses} />
     </div>
   );
