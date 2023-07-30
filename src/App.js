@@ -1,9 +1,10 @@
 import "./App.css";
 import Expenses from "./components/Expenses/Expenses";
 import NewExpense from "./components/ExpenseCreation/NewExpense";
+import { useState } from "react";
 
 function App() {
-  const expenses = [
+  const [expensesList, updateExpenses] = useState([
     {
       id: 1,
       title: "Expense 1",
@@ -28,17 +29,27 @@ function App() {
       amount: 200,
       date: new Date(),
     },
-  ];
+  ]);
 
   // add a new expense to the list
   const expenseAddEvent = (event) => {
-    expenses.push(event);
+    // console.log(event);
+    const newExpense = {
+      id: expensesList.length + 1,
+      title: event.expenseTitle,
+      amount: event.expenseAmount,
+      date: event.expenseDate,
+    };
+
+    updateExpenses((previousState) => {
+      return [...previousState, newExpense];
+    });
   };
 
   return (
     <div>
       <NewExpense addNewExpense={expenseAddEvent} />
-      <Expenses expenses={expenses} />
+      <Expenses expenses={expensesList} />
     </div>
   );
 }

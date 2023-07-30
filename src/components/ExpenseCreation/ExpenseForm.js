@@ -75,6 +75,7 @@ const ExpenseForm = (props) => {
     };
 
     console.log(expenseDetails);
+    props.addExpense(newExenseDetails);
     setNewExpenseDetails({
       expenseAmount: "",
       expenseDate: "",
