@@ -8,19 +8,19 @@ const staticExpenses = [
     id: 1,
     title: "Expense 1",
     amount: 200,
-    date: new Date(),
+    date: new Date("2020-05-05"),
   },
   {
     id: 2,
     title: "Expense 2",
     amount: 200,
-    date: new Date(),
+    date: new Date("2022-07-15"),
   },
   {
     id: 3,
     title: "Expense 3",
-    amount: 200,
-    date: new Date(),
+    amount: 210,
+    date: new Date("2022-08-16"),
   },
   {
     id: 4,
@@ -39,7 +39,7 @@ function App() {
     const newExpense = {
       id: expensesList.length + 1,
       title: event.expenseTitle,
-      amount: event.expenseAmount,
+      amount: +event.expenseAmount,
       date: event.expenseDate,
     };
 
