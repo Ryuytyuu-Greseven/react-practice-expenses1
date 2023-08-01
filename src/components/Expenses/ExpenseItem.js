@@ -18,7 +18,7 @@ function ExpenseItem(props) {
 
   return (
     <li>
-      <Card className="expense-item">
+      <Card className={`${true ? 'expense-item' : ''}`}>
         <ExpenseDate date={expenseDate} />
         <div className="expense-item__description">
           <h2>{expenseTitle}</h2>
