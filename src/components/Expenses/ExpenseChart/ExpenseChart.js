@@ -18,7 +18,7 @@ const ExpenseChart = (props) => {
 
   for (const expense of props.expenses) {
     // returns a number
-    const expenseMonthIndex = expense.date.getMonth();
+    const expenseMonthIndex = new Date(expense.date).getMonth();
     dataPoints[expenseMonthIndex].value += expense.amount;
   }
 
