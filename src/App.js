@@ -2,6 +2,7 @@ import "./App.css";
 import Expenses from "./components/Expenses/Expenses";
 import NewExpense from "./components/ExpenseCreation/NewExpense";
 import { useState } from "react";
+import AddUser from "./components/Project2/Users/AddUser";
 
 const staticExpenses = [
   {
@@ -52,6 +53,8 @@ function App() {
     <div>
       <NewExpense addNewExpense={expenseAddEvent} />
       <Expenses expenses={expensesList} />
+
+      <AddUser />
     </div>
   );
 }
