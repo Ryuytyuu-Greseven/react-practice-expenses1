@@ -3,6 +3,7 @@ import Expenses from "./components/Expenses/Expenses";
 import NewExpense from "./components/ExpenseCreation/NewExpense";
 import { useState } from "react";
 import AddUser from "./components/Project2/Users/AddUser";
+import UsersList from "./components/Project2/Users/UsersLIst/UsersList";
 
 const staticExpenses = [
   {
@@ -34,6 +35,8 @@ const staticExpenses = [
 function App() {
   const [expensesList, updateExpenses] = useState(staticExpenses);
 
+  const [usersList, updateUsers] = useState([]);
+
   // add a new expense to the list
   const expenseAddEvent = (event) => {
     // console.log(event);
@@ -49,12 +52,23 @@ function App() {
     });
   };
 
+  // add a new user to users list
+  const usersAddEvent = (event) => {
+    const newUser = {
+      id: usersList.length + 1,
+      name: event.username,
+      age: event.age,
+    };
+    updateUsers([...usersList, newUser]);
+  };
+
   return (
     <div>
       <NewExpense addNewExpense={expenseAddEvent} />
       <Expenses expenses={expensesList} />
 
-      <AddUser />
+      <AddUser addUser={usersAddEvent} />
+      <UsersList users={usersList} />
     </div>
   );
 }
