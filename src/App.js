@@ -59,7 +59,10 @@ function App() {
       name: event.username,
       age: event.age,
     };
-    updateUsers([...usersList, newUser]);
+    updateUsers((previousState) => {
+      return [...previousState, newUser];
+    });
+    // updateUsers([...usersList, newUser]);
   };
 
   return (
