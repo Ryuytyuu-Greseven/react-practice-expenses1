@@ -1,12 +1,18 @@
+import ReactDOM from "react-dom";
+
+import Wrapper from "../../../Helpers/Wrapper";
 import Button2 from "../Button/Button2";
 import Card2 from "../Card/Card2";
 
 import classes from "./ErrorModal.module.css";
 
 const ErrorModal = (props) => {
-  return (
-    <div>
-      <div className={classes.backdrop} />
+  const BackDrop = () => {
+    return <div className={classes.backdrop} />;
+  };
+
+  const ModalBody = () => {
+    return (
       <Card2 className={classes.modal}>
         <header className={classes.header}>
           <h2>{props.title}</h2>
@@ -18,7 +24,20 @@ const ErrorModal = (props) => {
           <Button2 onClick={props.closeModal}>Close Me</Button2>
         </footer>
       </Card2>
-    </div>
+    );
+  };
+
+  return (
+    <Wrapper>
+      {ReactDOM.createPortal(
+        <BackDrop onClick={props.closeModal} />,
+        document.getElementById("backdrop-root")
+      )}
+      {ReactDOM.createPortal(
+        <ModalBody />,
+        document.getElementById("overlay-root")
+      )}
+    </Wrapper>
   );
 };
 
