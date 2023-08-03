@@ -7,11 +7,11 @@ import Card2 from "../Card/Card2";
 import classes from "./ErrorModal.module.css";
 
 const ErrorModal = (props) => {
-  const BackDrop = () => {
-    return <div className={classes.backdrop} />;
+  const BackDrop = (props) => {
+    return <div className={classes.backdrop} onClick={props.onClick} />;
   };
 
-  const ModalBody = () => {
+  const ModalBody = (props) => {
     return (
       <Card2 className={classes.modal}>
         <header className={classes.header}>
@@ -34,7 +34,11 @@ const ErrorModal = (props) => {
         document.getElementById("backdrop-root")
       )}
       {ReactDOM.createPortal(
-        <ModalBody />,
+        <ModalBody
+          title={props.title}
+          message={props.message}
+          closeModal={props.closeModal}
+        />,
         document.getElementById("overlay-root")
       )}
     </Wrapper>
