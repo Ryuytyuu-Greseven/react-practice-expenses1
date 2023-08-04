@@ -27,6 +27,8 @@ const Header = (props) => {
       >
         User
       </Button2>
+
+      <h4>{props.header}</h4>
     </Card2>
   );
 };

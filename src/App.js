@@ -77,7 +77,7 @@ function App() {
 
   return (
     <div>
-      <Header selectNavigation={userNavigationUpdate}></Header>
+      <Header header={navigationMode} selectNavigation={userNavigationUpdate}></Header>
       {navigationMode === "expenses" && (
         <Wrapper>
           <NewExpense addNewExpense={expenseAddEvent} />
