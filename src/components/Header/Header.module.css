@@ -1,0 +1,14 @@
+.border {
+    margin: 2rem auto;
+    padding: 1rem;
+    width: 90%;
+    max-width: 40rem;
+}
+
+.button {
+    margin-left: 5px;
+    padding: .6rem;
+    border: 1px solid #40005d;
+    border-radius: 12px;
+    font: inherit;
+}

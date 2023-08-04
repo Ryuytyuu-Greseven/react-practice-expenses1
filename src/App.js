@@ -4,6 +4,8 @@ import NewExpense from "./components/ExpenseCreation/NewExpense";
 import { useState } from "react";
 import AddUser from "./components/Project2/Users/AddUser";
 import UsersList from "./components/Project2/Users/UsersLIst/UsersList";
+import Header from "./components/Header/Header";
+import Wrapper from "./components/Helpers/Wrapper";
 
 const staticExpenses = [
   {
@@ -37,6 +39,9 @@ function App() {
 
   const [usersList, updateUsers] = useState([]);
 
+  // navigation
+  const [navigationMode, updateNavigation] = useState("expenses");
+
   // add a new expense to the list
   const expenseAddEvent = (event) => {
     // console.log(event);
@@ -65,13 +70,26 @@ function App() {
     // updateUsers([...usersList, newUser]);
   };
 
+  // navigation
+  const userNavigationUpdate = (navigation) => {
+    updateNavigation(navigation);
+  };
+
   return (
     <div>
-      <NewExpense addNewExpense={expenseAddEvent} />
-      <Expenses expenses={expensesList} />
-
-      <AddUser addUser={usersAddEvent} />
-      <UsersList users={usersList} />
+      <Header selectNavigation={userNavigationUpdate}></Header>
+      {navigationMode === "expenses" && (
+        <Wrapper>
+          <NewExpense addNewExpense={expenseAddEvent} />
+          <Expenses expenses={expensesList} />
+        </Wrapper>
+      )}
+      {navigationMode === "users" && (
+        <Wrapper>
+          <AddUser addUser={usersAddEvent} />
+          <UsersList users={usersList} />
+        </Wrapper>
+      )}
     </div>
   );
 }
