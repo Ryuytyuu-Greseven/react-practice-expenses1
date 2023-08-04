@@ -12,3 +12,8 @@
     border-radius: 12px;
     font: inherit;
 }
+
+.active {
+    background-color: black;
+    border: 2px solid goldenrod;
+}

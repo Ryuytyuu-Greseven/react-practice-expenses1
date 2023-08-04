@@ -15,20 +15,22 @@ const Header = (props) => {
     <Card2 className={classes.border}>
       <Button2
         type="button"
-        className={classes.button}
+        className={`${classes.button} ${
+          props.header === "expenses" ? classes.active : ""
+        }`}
         onClick={userSelectExpense}
       >
         Expenses
       </Button2>
       <Button2
         type="button"
-        className={classes.button}
+        className={`${classes.button} ${
+          props.header === "users" ? classes.active : ""
+        }`}
         onClick={userSelectUser}
       >
         User
       </Button2>
-
-      <h4>{props.header}</h4>
     </Card2>
   );
 };
