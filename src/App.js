@@ -1,7 +1,7 @@
 import "./App.css";
 import Expenses from "./components/Expenses/Expenses";
 import NewExpense from "./components/ExpenseCreation/NewExpense";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AddUser from "./components/Project2/Users/AddUser";
 import UsersList from "./components/Project2/Users/UsersLIst/UsersList";
 import Header from "./components/Header/Header";
@@ -48,6 +48,12 @@ function App() {
   const [navigationMode, updateNavigation] = useState("expenses");
   // user login
   const [isLoggedIn, setUserLoggin] = useState("");
+  const userLoginStatus = sessionStorage.getItem("loginDetails");
+  useEffect(() => {
+    if (userLoginStatus === "1") {
+      setUserLoggin(true);
+    }
+  }, []);
 
   // add a new expense to the list
   const expenseAddEvent = (event) => {
@@ -86,10 +92,12 @@ function App() {
   const loginHandler = (email, password) => {
     // We should of course check email and password
     // But it's just a dummy/ demo anyways
+    sessionStorage.setItem("loginDetails", "1");
     setUserLoggin(true);
   };
 
   const logoutHandler = () => {
+    sessionStorage.setItem("loginDetails", "0");
     setUserLoggin(false);
   };
 
