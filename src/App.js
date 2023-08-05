@@ -1,11 +1,16 @@
 import "./App.css";
 import Expenses from "./components/Expenses/Expenses";
 import NewExpense from "./components/ExpenseCreation/NewExpense";
-import { useState } from "react";
+import React, { useState } from "react";
 import AddUser from "./components/Project2/Users/AddUser";
 import UsersList from "./components/Project2/Users/UsersLIst/UsersList";
 import Header from "./components/Header/Header";
 import Wrapper from "./components/Helpers/Wrapper";
+
+// user login
+import MainHeader from "./components/Project3/MainHeader/MainHeader";
+import Login from "./components/Project3/Login/Login";
+import Home from "./components/Project3/Home/Home";
 
 const staticExpenses = [
   {
@@ -41,6 +46,8 @@ function App() {
 
   // navigation
   const [navigationMode, updateNavigation] = useState("expenses");
+  // user login
+  const [isLoggedIn, setUserLoggin] = useState("");
 
   // add a new expense to the list
   const expenseAddEvent = (event) => {
@@ -75,22 +82,50 @@ function App() {
     updateNavigation(navigation);
   };
 
+  // user login
+  const loginHandler = (email, password) => {
+    // We should of course check email and password
+    // But it's just a dummy/ demo anyways
+    setUserLoggin(true);
+  };
+
+  const logoutHandler = () => {
+    setUserLoggin(false);
+  };
+
   return (
-    <div>
-      <Header header={navigationMode} selectNavigation={userNavigationUpdate}></Header>
-      {navigationMode === "expenses" && (
+    <React.Fragment>
+      {(navigationMode === "expenses" || navigationMode === "users") && (
         <Wrapper>
-          <NewExpense addNewExpense={expenseAddEvent} />
-          <Expenses expenses={expensesList} />
+          <Header
+            header={navigationMode}
+            selectNavigation={userNavigationUpdate}
+          ></Header>
+          {navigationMode === "expenses" && (
+            <Wrapper>
+              <NewExpense addNewExpense={expenseAddEvent} />
+              <Expenses expenses={expensesList} />
+            </Wrapper>
+          )}
+          {navigationMode === "users" && (
+            <Wrapper>
+              <AddUser addUser={usersAddEvent} />
+              <UsersList users={usersList} />
+            </Wrapper>
+          )}
         </Wrapper>
       )}
-      {navigationMode === "users" && (
-        <Wrapper>
-          <AddUser addUser={usersAddEvent} />
-          <UsersList users={usersList} />
-        </Wrapper>
+
+      {navigationMode === "userlogin" && (
+        <React.Fragment>
+          <MainHeader isAuthenticated={isLoggedIn} onLogout={logoutHandler} />
+          <main>
+            {!isLoggedIn && <Login onLogin={loginHandler} />}
+            {isLoggedIn && <Home onLogout={logoutHandler} />}
+          </main>
+        </React.Fragment>
       )}
-    </div>
+    </React.Fragment>
   );
 }
 

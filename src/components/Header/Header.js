@@ -10,6 +10,9 @@ const Header = (props) => {
   const userSelectExpense = () => {
     props.selectNavigation("expenses");
   };
+  const userSelectLogin = () => {
+    props.selectNavigation("userlogin");
+  };
 
   return (
     <Card2 className={classes.border}>
@@ -30,6 +33,15 @@ const Header = (props) => {
         onClick={userSelectUser}
       >
         User
+      </Button2>
+      <Button2
+        type="button"
+        className={`${classes.button} ${
+          props.header === "userlogin" ? classes.active : ""
+        }`}
+        onClick={userSelectLogin}
+      >
+        User Login
       </Button2>
     </Card2>
   );
