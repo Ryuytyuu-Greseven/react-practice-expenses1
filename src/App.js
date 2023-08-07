@@ -11,6 +11,7 @@ import Wrapper from "./components/Helpers/Wrapper";
 import MainHeader from "./components/Project3/MainHeader/MainHeader";
 import Login from "./components/Project3/Login/Login";
 import Home from "./components/Project3/Home/Home";
+import AuthContext from "./components/contexts/auth-context";
 
 const staticExpenses = [
   {
@@ -102,38 +103,40 @@ function App() {
   };
 
   return (
-    <React.Fragment>
-      {(navigationMode === "expenses" || navigationMode === "users") && (
-        <Wrapper>
-          <Header
-            header={navigationMode}
-            selectNavigation={userNavigationUpdate}
-          ></Header>
-          {navigationMode === "expenses" && (
-            <Wrapper>
-              <NewExpense addNewExpense={expenseAddEvent} />
-              <Expenses expenses={expensesList} />
-            </Wrapper>
-          )}
-          {navigationMode === "users" && (
-            <Wrapper>
-              <AddUser addUser={usersAddEvent} />
-              <UsersList users={usersList} />
-            </Wrapper>
-          )}
-        </Wrapper>
-      )}
+    <AuthContext.Provider value={{ isLoggedIn: false }}>
+      <React.Fragment>
+        {(navigationMode === "expenses" || navigationMode === "users") && (
+          <Wrapper>
+            <Header
+              header={navigationMode}
+              selectNavigation={userNavigationUpdate}
+            ></Header>
+            {navigationMode === "expenses" && (
+              <Wrapper>
+                <NewExpense addNewExpense={expenseAddEvent} />
+                <Expenses expenses={expensesList} />
+              </Wrapper>
+            )}
+            {navigationMode === "users" && (
+              <Wrapper>
+                <AddUser addUser={usersAddEvent} />
+                <UsersList users={usersList} />
+              </Wrapper>
+            )}
+          </Wrapper>
+        )}
 
-      {navigationMode === "userlogin" && (
-        <React.Fragment>
-          <MainHeader isAuthenticated={isLoggedIn} onLogout={logoutHandler} />
-          <main>
-            {!isLoggedIn && <Login onLogin={loginHandler} />}
-            {isLoggedIn && <Home onLogout={logoutHandler} />}
-          </main>
-        </React.Fragment>
-      )}
-    </React.Fragment>
+        {navigationMode === "userlogin" && (
+          <React.Fragment>
+            <MainHeader isAuthenticated={isLoggedIn} onLogout={logoutHandler} />
+            <main>
+              {!isLoggedIn && <Login onLogin={loginHandler} />}
+              {isLoggedIn && <Home onLogout={logoutHandler} />}
+            </main>
+          </React.Fragment>
+        )}
+      </React.Fragment>
+    </AuthContext.Provider>
   );
 }
 
