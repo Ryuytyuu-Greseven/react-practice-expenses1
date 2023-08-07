@@ -103,7 +103,9 @@ function App() {
   };
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn: false }}>
+    <AuthContext.Provider
+      value={{ isLoggedIn: isLoggedIn, onLogout: logoutHandler }}
+    >
       <React.Fragment>
         {(navigationMode === "expenses" || navigationMode === "users") && (
           <Wrapper>
@@ -128,7 +130,7 @@ function App() {
 
         {navigationMode === "userlogin" && (
           <React.Fragment>
-            <MainHeader isAuthenticated={isLoggedIn} onLogout={logoutHandler} />
+            <MainHeader />
             <main>
               {!isLoggedIn && <Login onLogin={loginHandler} />}
               {isLoggedIn && <Home onLogout={logoutHandler} />}
