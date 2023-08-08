@@ -1,7 +1,7 @@
 import "./App.css";
 import Expenses from "./components/Expenses/Expenses";
 import NewExpense from "./components/ExpenseCreation/NewExpense";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import AddUser from "./components/Project2/Users/AddUser";
 import UsersList from "./components/Project2/Users/UsersLIst/UsersList";
 import Header from "./components/Header/Header";
@@ -11,7 +11,9 @@ import Wrapper from "./components/Helpers/Wrapper";
 import MainHeader from "./components/Project3/MainHeader/MainHeader";
 import Login from "./components/Project3/Login/Login";
 import Home from "./components/Project3/Home/Home";
-import AuthContext from "./components/contexts/auth-context";
+import AuthContext, {
+  AuthContextProvider,
+} from "./components/contexts/auth-context";
 
 const staticExpenses = [
   {
@@ -47,14 +49,17 @@ function App() {
 
   // navigation
   const [navigationMode, updateNavigation] = useState("expenses");
+
+  /** Moved to logic to auth context */
   // user login
-  const [isLoggedIn, setUserLoggin] = useState("");
-  const userLoginStatus = sessionStorage.getItem("loginDetails");
-  useEffect(() => {
-    if (userLoginStatus === "1") {
-      setUserLoggin(true);
-    }
-  }, []);
+  // const [isLoggedIn, setUserLoggin] = useState("");
+  // const userLoginStatus = sessionStorage.getItem("loginDetails");
+  // useEffect(() => {
+  //   if (userLoginStatus === "1") {
+  //     setUserLoggin(true);
+  //   }
+  // }, []);
+  const authCtx = useContext(AuthContext);
 
   // add a new expense to the list
   const expenseAddEvent = (event) => {
@@ -89,56 +94,53 @@ function App() {
     updateNavigation(navigation);
   };
 
+  /** Moved the logic to auth context */
   // user login
-  const loginHandler = (email, password) => {
-    // We should of course check email and password
-    // But it's just a dummy/ demo anyways
-    sessionStorage.setItem("loginDetails", "1");
-    setUserLoggin(true);
-  };
+  // const loginHandler = (email, password) => {
+  //   // We should of course check email and password
+  //   // But it's just a dummy/ demo anyways
+  //   sessionStorage.setItem("loginDetails", "1");
+  //   setUserLoggin(true);
+  // };
 
-  const logoutHandler = () => {
-    sessionStorage.setItem("loginDetails", "0");
-    setUserLoggin(false);
-  };
+  // const logoutHandler = () => {
+  //   sessionStorage.setItem("loginDetails", "0");
+  //   setUserLoggin(false);
+  // };
 
   return (
-    <AuthContext.Provider
-      value={{ isLoggedIn: isLoggedIn, onLogout: logoutHandler }}
-    >
-      <React.Fragment>
-        {(navigationMode === "expenses" || navigationMode === "users") && (
-          <Wrapper>
-            <Header
-              header={navigationMode}
-              selectNavigation={userNavigationUpdate}
-            ></Header>
-            {navigationMode === "expenses" && (
-              <Wrapper>
-                <NewExpense addNewExpense={expenseAddEvent} />
-                <Expenses expenses={expensesList} />
-              </Wrapper>
-            )}
-            {navigationMode === "users" && (
-              <Wrapper>
-                <AddUser addUser={usersAddEvent} />
-                <UsersList users={usersList} />
-              </Wrapper>
-            )}
-          </Wrapper>
-        )}
+    <React.Fragment>
+      {(navigationMode === "expenses" || navigationMode === "users") && (
+        <Wrapper>
+          <Header
+            header={navigationMode}
+            selectNavigation={userNavigationUpdate}
+          ></Header>
+          {navigationMode === "expenses" && (
+            <Wrapper>
+              <NewExpense addNewExpense={expenseAddEvent} />
+              <Expenses expenses={expensesList} />
+            </Wrapper>
+          )}
+          {navigationMode === "users" && (
+            <Wrapper>
+              <AddUser addUser={usersAddEvent} />
+              <UsersList users={usersList} />
+            </Wrapper>
+          )}
+        </Wrapper>
+      )}
 
-        {navigationMode === "userlogin" && (
-          <React.Fragment>
-            <MainHeader />
-            <main>
-              {!isLoggedIn && <Login onLogin={loginHandler} />}
-              {isLoggedIn && <Home onLogout={logoutHandler} />}
-            </main>
-          </React.Fragment>
-        )}
-      </React.Fragment>
-    </AuthContext.Provider>
+      {navigationMode === "userlogin" && (
+        <AuthContextProvider>
+          <MainHeader />
+          <main>
+            {authCtx.isLoggedIn && <Login onLogin={authCtx.loginHandler} />}
+            {authCtx.isLoggedIn && <Home onLogout={authCtx.logoutHandler} />}
+          </main>
+        </AuthContextProvider>
+      )}
+    </React.Fragment>
   );
 }
 

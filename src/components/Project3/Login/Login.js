@@ -1,8 +1,9 @@
-import React, { useEffect, useReducer, useState } from "react";
+import React, { useContext, useEffect, useReducer, useState } from "react";
 
 import classes from "./Login.module.css";
 import Button2 from "../../Project2/UI/Button/Button2";
 import Card2 from "../../Project2/UI/Card/Card2";
+import AuthContext from "../../contexts/auth-context";
 
 // just a simple function, we should use to maintain state with the Reducers
 // always this functions gets called when ever we dispatch(update) a value
@@ -45,6 +46,8 @@ const Login = (props) => {
     { value: "", isValid: false }
   );
 
+  // auth context
+  const authCtx = useContext(AuthContext);
   // use effect
   // -- commented to use useReducer
   // useEffect(() => {
@@ -93,7 +96,7 @@ const Login = (props) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    props.onLogin(emailFormState.value, passwordFormState.value);
+    authCtx.onLogin(emailFormState.value, passwordFormState.value);
   };
 
   return (
