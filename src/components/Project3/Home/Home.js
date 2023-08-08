@@ -5,7 +5,7 @@ import Card2 from "../../Project2/UI/Card/Card2";
 import Button2 from "../../Project2/UI/Button/Button2";
 import AuthContext from "../../contexts/auth-context";
 
-const Home = (props) => {
+const Home = () => {
   const authCtx = useContext(AuthContext);
   return (
     <Card2 className={classes.home}>

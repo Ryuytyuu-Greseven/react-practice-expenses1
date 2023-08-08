@@ -132,13 +132,13 @@ function App() {
       )}
 
       {navigationMode === "userlogin" && (
-        <AuthContextProvider>
+        <React.Fragment>
           <MainHeader />
           <main>
-            {authCtx.isLoggedIn && <Login onLogin={authCtx.loginHandler} />}
-            {authCtx.isLoggedIn && <Home onLogout={authCtx.logoutHandler} />}
+            {!authCtx.isLoggedIn && <Login onLogin={authCtx.onLogin} />}
+            {authCtx.isLoggedIn && <Home onLogout={authCtx.onLogout} />}
           </main>
-        </AuthContextProvider>
+        </React.Fragment>
       )}
     </React.Fragment>
   );
