@@ -4,6 +4,7 @@ import classes from "./Login.module.css";
 import Button2 from "../../Project2/UI/Button/Button2";
 import Card2 from "../../Project2/UI/Card/Card2";
 import AuthContext from "../../contexts/auth-context";
+import Input from "../../UI/Cards/Input/Input";
 
 // just a simple function, we should use to maintain state with the Reducers
 // always this functions gets called when ever we dispatch(update) a value
@@ -102,7 +103,15 @@ const Login = () => {
   return (
     <Card2 className={classes.login}>
       <form onSubmit={submitHandler}>
-        <div
+        <Input
+          label={"E-Mail"}
+          type={"email"}
+          value={emailFormState.value}
+          id={"email"}
+          onChange={emailChangeHandler}
+          onBlur={validateEmailHandler}
+        />
+        {/* <div
           className={`${classes.control} ${
             emailFormState.isValid === false ? classes.invalid : ""
           }`}
@@ -115,8 +124,16 @@ const Login = () => {
             onChange={emailChangeHandler}
             onBlur={validateEmailHandler}
           />
-        </div>
-        <div
+        </div> */}
+        <Input
+          label={"Password"}
+          type={"password"}
+          value={passwordFormState.value}
+          id={"password"}
+          onChange={passwordChangeHandler}
+          onBlur={validatePasswordHandler}
+        />
+        {/* <div
           className={`${classes.control} ${
             passwordFormState.isValid === false ? classes.invalid : ""
           }`}
@@ -129,7 +146,7 @@ const Login = () => {
             onChange={passwordChangeHandler}
             onBlur={validatePasswordHandler}
           />
-        </div>
+        </div> */}
         <div className={classes.actions}>
           <Button2
             type="submit"
