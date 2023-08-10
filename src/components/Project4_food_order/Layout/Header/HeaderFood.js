@@ -2,15 +2,16 @@ import { Fragment } from "react";
 
 import classes from "./Header.module.css";
 import viceSnow from "../../../../assets/snow_king.png";
+import HeaderCardButtonFood from "../HeaderCardButton/HeaderCardButton";
 
 const HeaderFood = (props) => {
   return (
     <Fragment>
-      <header>
+      <header className={classes.header}>
         <h1>Vice City Delivery Service</h1>
-        <button>Cart</button>
+        <HeaderCardButtonFood />
       </header>
-      <div>
+      <div className={classes["main-image"]}>
         <img src={viceSnow} alt="GTA with in snow day around a hill!" />
       </div>
     </Fragment>
