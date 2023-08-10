@@ -170,7 +170,6 @@ const Login = () => {
         <div className={classes.actions}>
           <Button2
             type="submit"
-            className={classes.btn}
             // disabled={!formIsValid}
           >
             Login

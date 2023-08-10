@@ -1,7 +1,7 @@
 import "./App.css";
 import Expenses from "./components/Expenses/Expenses";
 import NewExpense from "./components/ExpenseCreation/NewExpense";
-import React, { useContext, useEffect, useState } from "react";
+import React, { Fragment, useContext, useEffect, useState } from "react";
 import AddUser from "./components/Project2/Users/AddUser";
 import UsersList from "./components/Project2/Users/UsersLIst/UsersList";
 import Header from "./components/Header/Header";
@@ -14,6 +14,7 @@ import Home from "./components/Project3/Home/Home";
 import AuthContext, {
   AuthContextProvider,
 } from "./components/contexts/auth-context";
+import HeaderFood from "./components/Project4_food_order/Layout/Header/HeaderFood";
 
 const staticExpenses = [
   {
@@ -139,6 +140,12 @@ function App() {
             {authCtx.isLoggedIn && <Home onLogout={authCtx.onLogout} />}
           </main>
         </React.Fragment>
+      )}
+
+      {navigationMode === "foodorder" && (
+        <Fragment>
+          <HeaderFood></HeaderFood>
+        </Fragment>
       )}
     </React.Fragment>
   );
